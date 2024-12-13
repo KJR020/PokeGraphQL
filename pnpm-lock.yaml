@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@apollo/client':
         specifier: ^3.12.2
-        version: 3.12.2(graphql@16.9.0)(subscriptions-transport-ws@0.9.19(graphql@15.9.0))
+        version: 3.12.2(graphql@16.9.0)(subscriptions-transport-ws@0.9.19(graphql@16.9.0))
       '@mdi/font':
         specifier: ^7.4.47
         version: 7.4.47
@@ -41,6 +41,9 @@ importers:
       vue:
         specifier: latest
         version: 3.5.13(typescript@5.7.2)
+      vue-apollo:
+        specifier: ^3.1.2
+        version: 3.1.2(graphql-tag@2.12.6(graphql@16.9.0))
       vue-router:
         specifier: latest
         version: 4.5.0(vue@3.5.13(typescript@5.7.2))
@@ -6075,7 +6078,7 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
-  '@apollo/client@3.12.2(graphql@16.9.0)(subscriptions-transport-ws@0.9.19(graphql@15.9.0))':
+  '@apollo/client@3.12.2(graphql@16.9.0)(subscriptions-transport-ws@0.9.19(graphql@16.9.0))':
     dependencies:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.9.0)
       '@wry/caches': 1.0.1
