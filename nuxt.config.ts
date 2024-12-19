@@ -9,4 +9,9 @@ export default defineNuxtConfig({
   build: {
     transpile: ["vuetify"],
   },
+  hooks: {
+    "vite:extendConfig": (config) => {
+      config.plugins!.push(vuetify());
+    },
+  },
 });
