@@ -1,5 +1,4 @@
 <script setup>
-import { NuxtPage } from '# components';
 console.log('BaseLayout setup');
 const links = [
   'Dashboard',
