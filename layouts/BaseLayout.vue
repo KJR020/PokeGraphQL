@@ -9,7 +9,7 @@ const links = [
 </script>
 
 <template>
-  <v-app id="inspire">
+  <div>
     <v-app-bar flat>
       <v-container class="mx-auto d-flex align-center justify-center">
         <v-avatar class="me-4 " color="grey-darken-1" size="32"></v-avatar>
@@ -29,7 +29,7 @@ const links = [
               <v-list rounded="lg">
                 <v-list-item v-for="n in 5" :key="n" :title="`List Item ${n}`" link></v-list-item>
                 <v-divider class="my-2"></v-divider>
-                <v-list-item color="grey-lighten-4" title="Refresh" link></v-list-item>
+                <v-list-item color="greyj-lighten-4" title="Refresh" link></v-list-item>
               </v-list>
             </v-sheet>
           </v-col>
@@ -41,5 +41,5 @@ const links = [
         </v-row>
       </v-container>
     </v-main>
-  </v-app>
+  </div>
 </template>
