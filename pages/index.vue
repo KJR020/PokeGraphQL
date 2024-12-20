@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { fetchPokemon } from '@/queries/pokemon';
+import { getWikipediaApiUrl } from '@/config';
 
 definePageMeta({
   layout: "base-layout",
@@ -12,29 +13,58 @@ interface Pokemon {
   attacks: string[];
 }
 
+interface WikipediaPage {
+  pageid: number;
+  ns: number;
+  title: string;
+  extract: string;
+}
+
+interface WikipediaResponse {
+  query: {
+    pages: {
+      [key: string]: WikipediaPage;
+    };
+  };
+}
+
 const pokemonName = ref<string>('');
 const pokemon = ref<Pokemon | null>(null);
-// const pokemonDescription = ref('');
+const pokemonDescription = ref('');
 
-// const fetchPokemonDescription = async (name: string) => {
-//   try {
-//     const response = await fetch(`https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro&titles=${name}_(Pok%C3%A9mon)&origin=*`);
-//     const data = await response.json();
-//     const pages = data.query.pages;
-//     const page = Object.values(pages)[0];
-//     pokemonDescription.value = page.extract;
-//   } catch (error) {
-//     console.error('Error fetching Pokemon description:', error);
-//   }
-// };
+function isWikipediaPage(obj: any): obj is WikipediaPage {
+  return obj && typeof obj.pageid === 'number' && typeof obj.ns === 'number' && typeof obj.title === 'string' && typeof obj.extract === 'string';
+}
+
+const fetchPokemonDescription = async (name: string): Promise<string> => {
+  try {
+    const url = getWikipediaApiUrl(name);
+    const response = await fetch(url);
+    const data: WikipediaResponse = await response.json();
+    const pages = data.query.pages;
+    const page = Object.values(pages)[0];
+    if (isWikipediaPage(page)) {
+      return page.extract;
+    } else {
+      console.error('Invalid Wikipedia page format');
+      return '';
+    }
+  } catch (error) {
+    console.error('Error fetching Pokemon description:', error);
+    return '';
+  }
+};
 
 
 const fetchPokemonData = async () => {
   if (pokemonName.value) {
     try {
       console.log('fetching pokemon data');
-      pokemon.value = await fetchPokemon(pokemonName.value);
-      // await fetchPokemonDescription(pokemonName.value);
+      const fetchedPokemon = await fetchPokemon(pokemonName.value);
+      pokemon.value = fetchedPokemon;
+
+      const description = await fetchPokemonDescription(pokemonName.value);
+      pokemonDescription.value = description;
     } catch (error) {
       console.error('Error fetching Pokemon:', error);
     }
@@ -57,6 +87,10 @@ const fetchPokemonData = async () => {
         <ul>
           <li v-for="(attack, index) in pokemon.attacks" :key="index">{{ attack }}</li>
         </ul>
+      </div>
+      <div v-if="pokemonDescription">
+        <h3>Description:</h3>
+        <p>{{ pokemonDescription }}</p>
       </div>
     </div>
   </div>
