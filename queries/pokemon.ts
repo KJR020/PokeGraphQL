@@ -59,7 +59,9 @@ const GET_ALL_POKEMON = gql`
   query getAllPokemon {
     pokemons(first: 151) {
       id
+      number
       name
+      types
       image
     }
   }
