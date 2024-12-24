@@ -1,32 +1,12 @@
 <script setup lang="ts">
 import { fetchPokemon } from '@/queries/pokemon';
 import { getWikipediaApiUrl } from '@/config';
+import { Pokemon, WikipediaPage, WikipediaResponse } from '@/types';
 
 definePageMeta({
   layout: "base-layout",
 });
 
-interface Pokemon {
-  name: string;
-  image: string;
-  types: string[];
-  attacks: string[];
-}
-
-interface WikipediaPage {
-  pageid: number;
-  ns: number;
-  title: string;
-  extract: string;
-}
-
-interface WikipediaResponse {
-  query: {
-    pages: {
-      [key: string]: WikipediaPage;
-    };
-  };
-}
 
 const pokemonName = ref<string>('');
 const pokemon = ref<Pokemon | null>(null);
