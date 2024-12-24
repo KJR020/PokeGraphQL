@@ -2,7 +2,7 @@ export type Pokemon = {
   name: string;
   image: string;
   types: string[];
-  attacks: string[];
+  attacks?: string[];
 };
 
 export type WikipediaPage = {

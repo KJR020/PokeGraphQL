@@ -55,6 +55,16 @@ const GET_POKEMON = gql`
   }
 `;
 
+const GET_ALL_POKEMON = gql`
+  query getAllPokemon {
+    pokemons(first: 151) {
+      id
+      name
+      image
+    }
+  }
+`;
+
 export async function fetchPokemon(name: string) {
   try {
     const { data } = await apolloClient.query({
@@ -64,6 +74,18 @@ export async function fetchPokemon(name: string) {
     return data.pokemon;
   } catch (error) {
     console.error("Error fetching Pokemon:", error);
+    throw error;
+  }
+}
+
+export async function fetchAllPokemon() {
+  try {
+    const { data } = await apolloClient.query({
+      query: GET_ALL_POKEMON,
+    });
+    return data.pokemons;
+  } catch (error) {
+    console.error("Error fetching all Pokemon:", error);
     throw error;
   }
 }
