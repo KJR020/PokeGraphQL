@@ -54,7 +54,7 @@ const fetchPokemonData = async () => {
 </script>
 
 <template #default>
-  <div>
+  <v-sheet min-height="70vh" rounded="lg">
     <h1>Pokémon Search</h1>
     <input v-model="pokemonName" placeholder="Enter Pokémon name" />
     <button @click="fetchPokemonData">Search</button>
@@ -73,5 +73,5 @@ const fetchPokemonData = async () => {
         <p>{{ pokemonDescription }}</p>
       </div>
     </div>
-  </div>
+  </v-sheet>
 </template>

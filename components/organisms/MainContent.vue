@@ -10,9 +10,7 @@ import Sidebar from '@/components/organisms/Sidebar.vue';
           <Sidebar />
         </v-col>
         <v-col>
-          <v-sheet min-height="70vh" rounded="lg">
-            <NuxtPage />
-          </v-sheet>
+          <NuxtPage />
         </v-col>
       </v-row>
     </v-container>
