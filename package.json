@@ -7,7 +7,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "test": "vitest"
   },
   "dependencies": {
     "@apollo/client": "^3.12.2",
@@ -29,5 +30,12 @@
     "node": "23.0.0",
     "pnpm": "9.12.2"
   },
-  "packageManager": "pnpm@9.12.2+sha512.22721b3a11f81661ae1ec68ce1a7b879425a1ca5b991c975b074ac220b187ce56c708fe5db69f4c962c989452eee76c82877f4ee80f474cebd61ee13461b6228"
+  "packageManager": "pnpm@9.12.2+sha512.22721b3a11f81661ae1ec68ce1a7b879425a1ca5b991c975b074ac220b187ce56c708fe5db69f4c962c989452eee76c82877f4ee80f474cebd61ee13461b6228",
+  "devDependencies": {
+    "@nuxt/test-utils": "^3.15.1",
+    "@vue/test-utils": "^2.4.6",
+    "happy-dom": "^16.0.1",
+    "playwright-core": "^1.49.1",
+    "vitest": "^2.1.8"
+  }
 }
