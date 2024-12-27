@@ -4,6 +4,7 @@ import vuetify from "vite-plugin-vuetify";
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   plugins: ["@/plugins/vuetify"],
+  modules: ["@nuxt/test-utils/module"],
   css: ["vuetify/styles"],
   devtools: { enabled: true },
   build: {
