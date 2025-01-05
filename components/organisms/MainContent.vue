@@ -6,9 +6,9 @@ import Sidebar from '@/components/organisms/Sidebar.vue';
   <v-main class="bg-grey-lighten-3">
     <v-container>
       <v-row>
-        <v-col cols="2">
+        <!-- <v-col cols="2">
           <Sidebar />
-        </v-col>
+        </v-col> -->
         <v-col>
           <NuxtPage />
         </v-col>

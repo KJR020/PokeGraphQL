@@ -57,9 +57,6 @@ const fetchPokemonData = async () => {
   <v-sheet min-height="70vh" rounded="lg">
     <h1>Pokémon Search</h1>
 
-    <v-select clearable chips
-      :items="['Normal', 'Fire', 'Water', 'Electric', 'Grass', 'Ice', 'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dark', 'dragon', 'steel', 'Fairy']"
-      label="Type" multiple />
     <input v-model="pokemonName" placeholder="Enter Pokémon name" />
     <button @click="fetchPokemonData">Search</button>
     <div v-if="pokemon">
