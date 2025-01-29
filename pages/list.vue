@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { fetchAllPokemon } from '@/queries/pokemon';
 import type { Pokemon } from '@/types/pokemon';
+import TypeIcon from '@/components/atoms/TypeIcon.vue';
 import { NuxtErrorBoundary } from '../.nuxt/components';
 
 definePageMeta({
   layout: "base-layout",
 });
-
 
 const pokemonList = ref<Pokemon[]>([]);
 const selectedTypes = ref<string[]>([]);
@@ -41,8 +41,10 @@ const filteredPokemonList = computed(() => {
   if (selectedTypes.value.length === 0) {
     return pokemonList.value;
   }
-  return pokemonList.value.filter((pokemon) => pokemon.types.some(type => selectedTypes.value.includes(type)));
-})
+  return pokemonList.value.filter((pokemon) =>
+    pokemon.types.some(type => selectedTypes.value.includes(type))
+  );
+});
 
 onMounted(() => {
   loadPokemonList();
@@ -53,12 +55,20 @@ onMounted(() => {
 <template #default>
   <v-container>
     <v-row>
-      <v-select v-model="selectedTypes" clearable :items="Object.keys(typeColors)" item-text="key" item-value="key"
-        label="Type" multiple>
-        <template #selection="{ item }">
-          <v-chip :color="typeColors[item.value]">
-            {{ item.title }}
-          </v-chip>
+      <v-select v-model="selectedTypes" clearable :items="Object.keys(typeColors)" label="Type" multiple>
+        <!-- Selected items display -->
+        <template v-slot:selection="{ item }">
+          <TypeIcon :type="item.value.toLowerCase()" size="24px" class="mr-2" />
+          {{ item.value }}
+        </template>
+
+        <!-- Menu items display -->
+        <template v-slot:item="{ item, props }">
+          <v-list-item v-bind="props">
+            <template v-slot:prepend>
+              <TypeIcon :type="item.value.toLowerCase()" size="24px" class="mr-2" />
+            </template>
+          </v-list-item>
         </template>
       </v-select>
     </v-row>
@@ -70,9 +80,8 @@ onMounted(() => {
           <v-card-text>
             <v-row class="justify-start">
               <v-col>
-                <v-chip v-for="(type, index) in pokemon.types" :key="index" class="mr-2" :color="typeColors[type]">
-                  {{ type }}
-                </v-chip>
+                <TypeIcon v-for="(type, index) in pokemon.types" :key="index" :type="type.toLowerCase()" size="32px"
+                  class="mr-2" />
               </v-col>
             </v-row>
           </v-card-text>
@@ -85,8 +94,6 @@ onMounted(() => {
 <style>
 .v-input__control .v-icon {
   opacity: 1 !important;
-  /* 非フォーカス時でも表示 */
   color: black !important;
-  /* 背景とコントラストを調整 */
 }
 </style>

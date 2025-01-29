@@ -73,3 +73,11 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## Credits
+
+- Pokemon type icons by [James Watkins](https://github.com/duiker101/pokemon-type-icons) (MIT License, see [LICENSES/pokemon-type-icons.txt](LICENSES/pokemon-type-icons.txt))
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
