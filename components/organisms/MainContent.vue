@@ -4,7 +4,7 @@ import Sidebar from '@/components/organisms/Sidebar.vue';
 
 <template>
   <v-main class="bg-grey-lighten-3">
-    <v-container>
+    <v-container class="min-h-screen">
       <v-row>
         <!-- <v-col cols="2">
           <Sidebar />
@@ -16,3 +16,9 @@ import Sidebar from '@/components/organisms/Sidebar.vue';
     </v-container>
   </v-main>
 </template>
+
+<style scoped>
+.min-h-screen {
+  min-height: calc(100vh - 64px);
+}
+</style>

@@ -2,11 +2,11 @@
 import { fetchPokemon } from '@/queries/pokemon';
 import { getWikipediaApiUrl } from '@/config';
 import type { Pokemon, WikipediaPage, WikipediaResponse } from '@/types/pokemon';
+import DOMPurify from 'dompurify';
 
 definePageMeta({
   layout: "base-layout",
 });
-
 
 const pokemonName = ref<string>('');
 const pokemon = ref<Pokemon | null>(null);
@@ -25,7 +25,8 @@ const fetchPokemonDescription = async (name: string): Promise<string> => {
     const pages = data.query.pages;
     const page = Object.values(pages)[0];
     if (isWikipediaPage(page)) {
-      return page.extract;
+      // Sanitize the HTML content
+      return DOMPurify.sanitize(page.extract, { USE_PROFILES: { html: true } });
     } else {
       console.error('Invalid Wikipedia page format');
       return '';
@@ -35,7 +36,6 @@ const fetchPokemonDescription = async (name: string): Promise<string> => {
     return '';
   }
 };
-
 
 const fetchPokemonData = async () => {
   if (pokemonName.value) {
@@ -54,7 +54,6 @@ const fetchPokemonData = async () => {
     }
   }
 };
-
 </script>
 
 <template #default>
@@ -107,7 +106,7 @@ const fetchPokemonData = async () => {
                 <v-expansion-panel v-if="pokemonDescription">
                   <v-expansion-panel-title>Description</v-expansion-panel-title>
                   <v-expansion-panel-text>
-                    {{ pokemonDescription }}
+                    <div class="description-content" v-html="pokemonDescription"></div>
                   </v-expansion-panel-text>
                 </v-expansion-panel>
               </v-expansion-panels>
@@ -130,6 +129,14 @@ const fetchPokemonData = async () => {
 
 .pokemon-image:hover {
   transform: scale(1.1);
+}
+
+.description-content :deep(p) {
+  margin-bottom: 1em;
+}
+
+.description-content :deep(i) {
+  font-style: italic;
 }
 
 @keyframes fadeIn {
