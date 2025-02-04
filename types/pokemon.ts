@@ -1,8 +1,16 @@
+export type Attack = {
+  name: string;
+  type: string;
+  damage: number;
+};
+
 export type Pokemon = {
   name: string;
   image: string;
   types: string[];
-  attacks?: string[];
+  attacks?: {
+    special: Attack[];
+  };
 };
 
 export type WikipediaPage = {
