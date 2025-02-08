@@ -20,10 +20,6 @@ useLocale()
       </v-avatar>
       <v-btn v-for="link in links" :key="link.name" :text="link.name" :to="link.path" variant="text"></v-btn>
       <v-spacer></v-spacer>
-      <v-responsive max-width="160">
-        <v-text-field density="compact" label="Search" rounded="lg" variant="solo-filled" flat hide-details
-          single-line></v-text-field>
-      </v-responsive>
     </v-container>
   </v-app-bar>
 </template>
