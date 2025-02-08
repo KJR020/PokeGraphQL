@@ -8,6 +8,7 @@ export type Pokemon = {
   name: string;
   image: string;
   types: string[];
+  isFavorite?: boolean;
   attacks?: {
     special: Attack[];
   };
