@@ -4,6 +4,8 @@ import type { Pokemon } from "@/types/pokemon";
 import TypeIcon from "@/components/atoms/TypeIcon.vue";
 import { NuxtErrorBoundary } from "../.nuxt/components";
 import { useFavorites } from "@/composables/useFavorites";
+import { usePokemonStore } from "@/stores/pokemon";
+import PokemonDetailModal from "@/components/organisms/PokemonDetailModal.vue";
 
 definePageMeta({
   layout: "base-layout",
@@ -13,9 +15,8 @@ const pokemonList = ref<Pokemon[]>([]);
 const selectedTypes = ref<string[]>([]);
 const isLoading = ref(true);
 const searchQuery = ref("");
-const showDialog = ref(false);
-const selectedPokemon = ref<Pokemon | null>(null);
 const { isFavorite, toggleFavorite } = useFavorites();
+const pokemonStore = usePokemonStore();
 
 const typeColors: Record<string, string> = {
   Normal: "grey",
@@ -70,8 +71,7 @@ const filteredPokemonList = computed(() => {
 });
 
 const openDialog = (pokemon: Pokemon) => {
-  selectedPokemon.value = pokemon;
-  showDialog.value = true;
+  pokemonStore.openModal(pokemon);
 };
 
 onMounted(() => {
@@ -228,74 +228,7 @@ onMounted(() => {
       </v-col>
     </v-row>
 
-    <!-- Detail Dialog -->
-    <v-dialog
-      v-model="showDialog"
-      max-width="600"
-      :scrim="true"
-      transition="dialog-bottom-transition"
-    >
-      <v-card v-if="selectedPokemon" class="detail-dialog">
-        <v-card-title class="text-h5 font-weight-bold pa-4">
-          {{ selectedPokemon.name }}
-          <div class="dialog-buttons">
-            <v-btn
-              icon
-              size="small"
-              color="amber"
-              variant="flat"
-              class="mr-2"
-              :aria-label="
-                isFavorite(selectedPokemon.name)
-                  ? 'Remove from favorites'
-                  : 'Add to favorites'
-              "
-              @click="toggleFavorite(selectedPokemon.name)"
-            >
-              <v-icon
-                :icon="
-                  isFavorite(selectedPokemon.name)
-                    ? 'mdi-star'
-                    : 'mdi-star-outline'
-                "
-              />
-            </v-btn>
-            <v-btn
-              icon="mdi-close"
-              size="small"
-              variant="text"
-              @click="showDialog = false"
-              aria-label="Close dialog"
-            />
-          </div>
-        </v-card-title>
-
-        <div class="dialog-image-container">
-          <v-img
-            :src="selectedPokemon.image"
-            height="400"
-            contain
-            :alt="selectedPokemon.name"
-          />
-        </div>
-
-        <v-card-text class="pa-4">
-          <v-row class="justify-start">
-            <v-chip
-              v-for="(type, index) in selectedPokemon.types"
-              :key="index"
-              :color="typeColors[type]"
-              text-color="white"
-              class="mr-2 mb-2"
-              size="large"
-            >
-              <TypeIcon :type="type.toLowerCase()" size="24px" class="mr-2" />
-              {{ type }}
-            </v-chip>
-          </v-row>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
+    <PokemonDetailModal />
   </v-container>
 </template>
 
